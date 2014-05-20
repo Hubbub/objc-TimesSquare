@@ -145,22 +145,18 @@
         
         [self.dayButtons[index] setHidden:YES];
         [self.notThisMonthButtons[index] setHidden:YES];
-
-        NSInteger thisDayMonth = thisDateComponents.month;
-        if (self.monthOfBeginningDate != thisDayMonth) {
+        
+        if ([self.todayDateComponents isEqual:thisDateComponents]) {
+            self.todayButton.hidden = NO;
+            [self.todayButton setTitle:title forState:UIControlStateNormal];
+            [self.todayButton setAccessibilityLabel:accessibilityLabel];
+            self.indexOfTodayButton = index;
+        } else if ([self.firstEnabledDate compare:date] == NSOrderedDescending) {
             [self.notThisMonthButtons[index] setHidden:NO];
         } else {
-
-            if ([self.todayDateComponents isEqual:thisDateComponents]) {
-                self.todayButton.hidden = NO;
-                [self.todayButton setTitle:title forState:UIControlStateNormal];
-                [self.todayButton setAccessibilityLabel:accessibilityLabel];
-                self.indexOfTodayButton = index;
-            } else {
-                UIButton *button = self.dayButtons[index];
-                button.enabled = ![self.calendarView.delegate respondsToSelector:@selector(calendarView:shouldSelectDate:)] || [self.calendarView.delegate calendarView:self.calendarView shouldSelectDate:date];
-                button.hidden = NO;
-            }
+            UIButton *button = self.dayButtons[index];
+            button.enabled = ![self.calendarView.delegate respondsToSelector:@selector(calendarView:shouldSelectDate:)] || [self.calendarView.delegate calendarView:self.calendarView shouldSelectDate:date];
+            button.hidden = NO;            
         }
 
         date = [self.calendar dateByAddingComponents:offset toDate:date options:0];

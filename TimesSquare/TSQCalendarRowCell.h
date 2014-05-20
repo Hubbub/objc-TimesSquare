@@ -51,6 +51,12 @@
  */
 @property (nonatomic, strong) NSDate *beginningDate;
 
+/** The first date that should be shown as enabled.
+ 
+ Notice that it might be before the `firstOfMonth` property or it might be after.
+ */
+@property (nonatomic, strong) NSDate *firstEnabledDate;
+
 /** Whether this cell is the bottom row / last week for the month.
  
  You may find yourself using a different background image or laying out differently in the last row.
