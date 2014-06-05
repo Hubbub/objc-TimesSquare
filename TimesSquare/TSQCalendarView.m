@@ -112,13 +112,13 @@
 - (void)setFirstDate:(NSDate *)firstDate;
 {
     // clamp to the beginning of its month
-    _firstDate = firstDate;
+    _firstDate = [self clampDate:firstDate toComponents:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit];
     _firstDateClamped = [self clampDate:firstDate toComponents:NSMonthCalendarUnit|NSYearCalendarUnit];
 }
 
 - (void)setLastDate:(NSDate *)lastDate;
 {
-    _lastDate = lastDate;
+    _lastDate = [self clampDate:lastDate toComponents:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit];
     
     // clamp to the end of its month
     NSDate *firstOfMonth = [self clampDate:lastDate toComponents:NSMonthCalendarUnit|NSYearCalendarUnit];
